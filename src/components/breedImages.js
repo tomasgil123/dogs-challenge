@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const BreedImages = ({ breedImages }) => {
+const BreedImages = ({ breedImages, addDogToMyTeam }) => {
   const dogImagesPerPage = 5
   const pageNumbers = []
 
@@ -39,7 +39,7 @@ const BreedImages = ({ breedImages }) => {
       </nav>
       <div>
         {breedImagesToDisplay.map((image) => (
-          <div>
+          <div key={image} onClick={() => addDogToMyTeam(image)}>
             <img style={{ width: '100px', height: '100px' }} src={image} />
           </div>
         ))}

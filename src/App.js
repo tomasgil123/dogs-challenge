@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 // components
 import BreedImages from './components/breedImages'
+import MyTeam from './components/myTeam'
 
 function App() {
   const [listBreeds, setListBreeds] = useState([])
@@ -63,15 +64,42 @@ function App() {
     }
   }, [selectedBreed])
 
+  const [myTeam, setMyTeam] = useState([])
+
+  const addDogToMyTeam = (dogImage) => {
+    const dog = {
+      img: dogImage,
+      breed: selectedBreed,
+    }
+
+    if (myTeam.filter((dog) => dog.breed === selectedBreed).length === 3) {
+      window.alert('You can only add max 3 dogs of each breet to you team')
+      return
+    }
+    if (myTeam.length === 10) {
+      window.alert('You can only add max 10 dogs to your team')
+      return
+    }
+    setMyTeam(myTeam.concat(dog))
+  }
+
+  const removeDogFromMyTeam = (dogImage) => {
+    const filteredTeam = myTeam.filter((dog) => dog.img !== dogImage)
+    debugger
+    setMyTeam(filteredTeam)
+  }
+
   return (
     <div>
       <div>
         <h1>All breeds</h1>
         <input value={search} onChange={(e) => setSearch(e.target.value)} />
-        {search ? (
+        {search && listBreeds ? (
           <div>
             {listBreeds
-              .filter((breed) => breed.includes(search))
+              .filter((breed) => {
+                return breed.includes(search)
+              })
               .map((breed) => (
                 <div
                   style={{ cursor: 'pointer', padding: '5px' }}
@@ -86,7 +114,10 @@ function App() {
           <div>Start to type something to see the list of dogs</div>
         )}
         <div>
-          <BreedImages breedImages={breedImages} />
+          <BreedImages breedImages={breedImages} addDogToMyTeam={addDogToMyTeam} />
+        </div>
+        <div>
+          <MyTeam myTeam={myTeam} removeDogFromMyTeam={removeDogFromMyTeam} />
         </div>
       </div>
     </div>
