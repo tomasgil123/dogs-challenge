@@ -3,7 +3,7 @@ import './App.css'
 import React, { useEffect, useState } from 'react'
 
 // components
-import Pages from './components/pages'
+import BreedImages from './components/breedImages'
 
 function App() {
   const [listBreeds, setListBreeds] = useState([])
@@ -42,15 +42,22 @@ function App() {
   const [breedImages, setBreedImages] = useState([])
 
   const getImagesBreed = async () => {
+    // como dijimos mas arriba, hay breeds que tiene sub-breeds y en el listado
+    // los representamos de la siguiente forma ej bulldog-english
+    // Ahora bien, cuando le queresmos pedir las iamgenes de un sub breed
+    // a la api tenemos que poner en la ulr lo siguiente bulldog/english
+    // para obtener eso es que hacemos ese replace
     const breed = selectedBreed.replace('-', '.')
     const breedImagesResponse = await fetch(
       `${process.env.REACT_APP_BASE_URL}breed/${breed}/images`
     )
     const breedImages = await breedImagesResponse.json()
-    setBreedImages(breedImages)
+    setBreedImages(breedImages.message)
   }
 
   useEffect(() => {
+    // cuando el selectedBreed cambia ejecutamos getImagesBreed,
+    // que lo que hace es pedir las imagenes del breed seleccionado
     if (selectedBreed) {
       getImagesBreed()
     }
@@ -66,7 +73,11 @@ function App() {
             {listBreeds
               .filter((breed) => breed.includes(search))
               .map((breed) => (
-                <div key={breed} onClick={() => setSelectedBreed(breed)}>
+                <div
+                  style={{ cursor: 'pointer', padding: '5px' }}
+                  key={breed}
+                  onClick={() => setSelectedBreed(breed)}
+                >
                   {breed}
                 </div>
               ))}
@@ -75,10 +86,7 @@ function App() {
           <div>Start to type something to see the list of dogs</div>
         )}
         <div>
-          <h1>Dogs in breed</h1>
-          <div>
-            <Pages totalImages={breedImages.length} />
-          </div>
+          <BreedImages breedImages={breedImages} />
         </div>
       </div>
     </div>
