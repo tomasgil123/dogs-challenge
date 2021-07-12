@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import BreedImages from './components/breedImages'
 import MyTeam from './components/myTeam'
 import Search from './screens/search'
+import Breeds from './screens/breeds'
 
 // function App() {
 //   const [listBreeds, setListBreeds] = useState([])
@@ -131,7 +132,7 @@ function App() {
     <Router>
       <Switch>
         <Route path="/breeds">
-          <div>Breeds</div>
+          <Breeds />
         </Route>
         <Route path="/myteam">
           <div>My team</div>

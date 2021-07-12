@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 // actions
 import { setBreedSelected } from '../actions/breeds'
@@ -8,6 +9,7 @@ const Search = () => {
   const [listBreeds, setListBreeds] = useState([])
   const [search, setSearch] = useState('')
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const getAllBreeds = async () => {
     // con process.env. obtenemos la variable base url del .env file en el root del proyecto
@@ -52,7 +54,12 @@ const Search = () => {
               <div
                 style={{ cursor: 'pointer', padding: '5px' }}
                 key={breed}
-                onClick={() => dispatch(setBreedSelected(breed))}
+                onClick={() => {
+                  // cuando el usuario selecciona un breed lo guardamos en
+                  // la store y redirigimos al usuario a la pagina "breeds"
+                  dispatch(setBreedSelected(breed))
+                  history.push('/breeds')
+                }}
               >
                 {breed}
               </div>
