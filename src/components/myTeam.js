@@ -19,9 +19,7 @@ const MyTeam = ({ myTeam, removeDogFromMyTeam }) => {
                   <div key={dog}>
                     <img src={dog.img} alt="dog img" width="150" height="150" />
                     <p>
-                      <button onClick={() => removeDogFromMyTeam(dog.img)}>
-                        remove from myTeam
-                      </button>
+                      <button onClick={() => removeDogFromMyTeam(dog)}>remove from myTeam</button>
                     </p>
                   </div>
                 </div>

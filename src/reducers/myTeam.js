@@ -21,6 +21,7 @@ const myTeamReducer = (state = initialState, action) => {
   }
 
   if (action.type === REMOVE_DOG) {
+    console.log('action.payload.dog.img', action.payload.dog.img)
     return { ...state, myTeam: state.myTeam.filter((dog) => action.payload.dog.img !== dog.img) }
   }
 

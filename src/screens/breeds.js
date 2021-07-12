@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
+import { useHistory } from 'react-router-dom'
 // components
 import BreedImages from '../components/breedImages'
 // actions
@@ -11,6 +11,7 @@ const Breeds = () => {
   const breedSelected = useSelector((state) => state.breeds.breedSelected)
 
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const addDog = (dogImage) => {
     const dog = {
@@ -44,6 +45,9 @@ const Breeds = () => {
 
   return (
     <div>
+      <div>
+        <button onClick={() => history.push('/myteam')}>Ir a my team</button>
+      </div>
       <BreedImages breedImages={breedImages} addDogToMyTeam={addDog} />
     </div>
   )
