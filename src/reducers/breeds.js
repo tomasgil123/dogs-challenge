@@ -4,7 +4,7 @@ const initialState = {
 }
 const breedsReducer = (state = initialState, action) => {
   if (action.type === SET_BREED_SELECTED) {
-    return { ...state, breeedSelected: action.payload.breedSelected }
+    return { ...state, breedSelected: action.payload.breedSelected }
   }
 
   return state

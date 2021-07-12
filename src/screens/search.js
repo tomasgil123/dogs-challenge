@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+
+// actions
+import { setBreedSelected } from '../actions/breeds'
 
 const Search = () => {
   const [listBreeds, setListBreeds] = useState([])
   const [search, setSearch] = useState('')
-  const [selectedBreed, setSelectedBreed] = useState('')
+  const dispatch = useDispatch()
 
   const getAllBreeds = async () => {
     // con process.env. obtenemos la variable base url del .env file en el root del proyecto
@@ -48,7 +52,7 @@ const Search = () => {
               <div
                 style={{ cursor: 'pointer', padding: '5px' }}
                 key={breed}
-                onClick={() => setSelectedBreed(breed)}
+                onClick={() => dispatch(setBreedSelected(breed))}
               >
                 {breed}
               </div>
